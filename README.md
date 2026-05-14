@@ -13,7 +13,8 @@ A copy of the full license text is included in this repository in the LICENSE.md
 
 AGPL-3.0 Compliance If you modify this software and run it over a network (e.g., as a website or SaaS), you must provide the source code of your modified version to all users interacting with it.
 
-Contact [Ritam Shome] - [ritamshome@gmail.com] primary creator for this Repo
+Contact [Ritam Shome] - [ritamshome@gmail.com] primary creator for this Repo.
+
 Group 5 Leader list - 1. ramanath.ramnath@gmail.com
                       2. sivanandrao@gmail.com
                       3. bharath.pu@gmail.com
