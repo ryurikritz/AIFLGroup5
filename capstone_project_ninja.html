@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capstone Project - Project Ninja Command Center</title>
+    
+    <!-- PURE OFFLINE EMBEDDED STYLESHEET (No Internet Required) -->
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; }
+        body { background-color: #f1f5f9; padding: 24px; color: #1e293b; }
+        
+        /* Structural Containers */
+        .card { background: #ffffff; padding: 24px; border-radius: 12px; border: 1px solid #e2e8f0; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .flex-header { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+        .grid-controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 20px; }
+        .grid-metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 20px; }
+        
+        /* Typography */
+        h1 { font-size: 22px; font-weight: 700; color: #0f172a; }
+        p { font-size: 13px; color: #64748b; }
+        .label-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: #94a3b8; margin-bottom: 6px; }
+        
+        /* Form Inputs */
+        select { width: 100%; padding: 12px; font-size: 13px; border-radius: 8px; border: 1px solid #cbd5e1; background-color: #ffffff; color: #0f172a; outline: none; cursor: pointer; font-weight: 600; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+        select:focus { border-color: #4f46e5; }
+        
+        /* Semantic Badges */
+        .badge { display: inline-block; font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 4px; border: 1px solid; text-align: center; }
+        .badge-no { background-color: #e0e7ff; color: #4338ca; border-color: #c7d2fe; }
+        .badge-yes { background-color: #fef3c7; color: #b45309; border-color: #fde68a; }
+        
+        /* Summary Scorecards */
+        .metric-box { background: #ffffff; padding: 20px; border-radius: 12px; border: 1px solid #e2e8f0; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .metric-val { font-size: 26px; font-weight: 700; color: #0f172a; margin-top: 4px; }
+        .txt-large { font-size: 16px; font-weight: 700; }
+        
+        /* Ingestion Ledger Data Grid */
+        .table-container { background: #ffffff; border-radius: 12px; border: 1px solid #e2e8f0; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .table-top { padding: 16px 24px; border-bottom: 1px solid #e2e8f0; background: #f8fafc; display: flex; justify-content: space-between; align-items: center; }
+        .table-scroll { max-height: 420px; overflow-y: auto; }
+        table { width: 100%; border-collapse: collapse; text-align: left; font-size: 12px; }
+        th { background: #f8fafc; color: #64748b; font-weight: 600; padding: 14px 16px; text-transform: uppercase; position: sticky; top: 0; z-index: 5; border-bottom: 1px solid #e2e8f0; font-size: 11px; }
+        td { padding: 14px 16px; border-bottom: 1px solid #f1f5f9; color: #334155; vertical-align: top; line-height: 1.4; }
+        tr:hover td { background-color: #f8fafc; }
+        .row-ts { display: block; font-size: 10px; color: #94a3b8; margin-top: 3px; font-weight: 400; font-family: monospace; }
+        .row-id { font-family: monospace; font-weight: 600; color: #0f172a; font-size: 13px; }
+    </style>
+</head>
+<body>
+
+    <!-- Capstone Project Executive Title Header -->
+    <div class="card flex-header">
+        <div>
+            <h1>🎓 Capstone Project: Project Ninja Command Center</h1>
+            <p>AI-Powered Operational Incident Prediction & Intelligent Response Platform Demonstration Workspace</p>
+        </div>
+        <div style="background-color: #e0e7ff; padding: 12px; border-radius: 8px; text-align: right; border: 1px solid #c7d2fe;">
+            <span style="font-size: 10px; font-weight: 600; color: #4338ca; display: block; text-transform: uppercase; letter-spacing: 0.05em;">Capstone Architecture</span>
+            <span style="font-size: 13px; font-weight: 700; color: #1e1b4b;">Snowflake DB + CoPilot Engine</span>
+        </div>
+    </div>
+
+    <!-- Live Interactive Controls Grid -->
+    <div class="grid-controls">
+        <div class="card" style="margin-bottom: 0;">
+            <div class="label-title">🎛️ Select Capstone Evaluation Scope Layer</div>
+            <select id="layerSelect" onchange="applyDatasetFilters()">
+                <option value="all">Show Combined Enterprise Operations (100% Volume Baseline)</option>
+                <option value="auto">Show CoPilot Autonomous Resolution Layer (The 90% Automation Tier)</option>
+                <option value="hitl">Show Human-in-the-Loop Safeguard Queues (The 10% Exception Tier)</option>
+            </select>
+        </div>
+        <div class="card" style="margin-bottom: 0; display: flex; flex-direction: column; justify-content: center;">
+            <div class="label-title">Current Capstone Split Status</div>
+            <div class="txt-large" id="splitStatusLabel" style="color: #475569;">90.1% Auto / 9.9% HITL Split</div>
+        </div>
+        <div class="card" style="margin-bottom: 0; display: flex; flex-direction: column; justify-content: center;">
+            <div class="label-title">Capstone Business Performance Impact</div>
+            <div class="txt-large" id="businessImpactLabel" style="color: #16a34a;">⚡ Running ~65% Faster than Legacy Systems</div>
+        </div>
+    </div>
+
+    <!-- Summary Scorecards Matrix -->
+    <div class="grid-metrics">
+        <div class="metric-box">
+            <div class="label-title" id="cardLabel1">Monitored Event Volume</div>
+            <div class="metric-val" id="totalCountCard">1,500</div>
+        </div>
+        <div class="metric-box">
+            <div class="label-title" id="cardLabel2">Autonomous Agent Fixes</div>
+            <div class="metric-val" id="autoCountCard" style="color: #4f46e5;">1,352</div>
+        </div>
+        <div class="metric-box">
+            <div class="label-title" id="cardLabel3">HITL Human Overrides</div>
+            <div class="metric-val" id="hitlCountCard" style="color: #d97706;">148</div>
+        </div>
+        <div class="metric-box">
+            <div class="label-title" id="cardLabel4">Mean Time to Resolution (MTTR)</div>
+            <div class="metric-val" id="avgTimeCard">14.1 min</div>
+        </div>
+    </div>
+
+    <!-- Central Analytics Stream Ledger -->
+    <div class="table-container">
+        <div class="table-top">
+            <h3 style="font-size: 14px; font-weight: 600; color: #334155;">🔍 Capstone Snowflake Analytics Ledger (Ingested Pipeline State View)</h3>
+            <span id="rowCounterText" style="font-size: 12px; color: #94a3b8; font-weight: 500;">Showing 1,500 rows</span>
+        </div>
+        <div class="table-scroll">
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 140px;">Incident ID</th>
+                        <th style="width: 160px;">Telemetry Type</th>
+                        <th style="width: 240px;">Assigned Handler Persona</th>
+                        <th>Remediation Action Script / Safety Escalation Path</th>
+                        <th style="text-align: center; width: 80px;">HITL</th>
+                        <th style="text-align: right; width: 90px;">MTTR</th>
+                    </tr>
+                </thead>
+                <tbody id="ledgerTableBody">
+                    <!-- JavaScript dynamically injects rows here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT ENGINE -->
+    <script>
+        const autonomousKB = {
+            'CPU Spike': { handler: 'Agent Alan (Compute Ops)', action: 'Triggered auto-scaling workflow: provisioned +1 Azure node instance.' },
+            'Memory Leak': { handler: 'Agent Alan (Compute Ops)', action: 'Isolated faulty worker partition and successfully flushed process heap.' },
+            'Disk IOPS Saturation': { handler: 'Agent Alan (Compute Ops)', action: 'Expanded premium structural cloud block volume by 200GB instantly.' },
+            'Traffic Surge': { handler: 'Agent Ada (Network Ops)', action: 'Rerouted incoming corporate request pools via standby NetScaler gateway.' },
+            'BGP Flapping': { handler: 'Agent Ada (Network Ops)', action: 'Executed automated interface port reset on core transit router.' },
+            'API Gateway Latency': { handler: 'Agent Ada (Network Ops)', action: 'Purged edge infrastructure proxy cluster routing tables.' },
+            'VDI Connection Failure': { handler: 'Agent Grace (Endpoint Ops)', action: 'Cleared stuck Citrix user session locks and workspace profiles.' },
+            'Profile Sync Timeout': { handler: 'Agent Grace (Endpoint Ops)', action: 'Forced re-synchronization of localized cloud profile cache.' }
+        };
+
+        const hitlQueues = [
+            { queue: 'HITL - Architectural Sign-off Required', action: 'Infrastructure Director manually verified and approved multi-region cross-cloud data failover.' },
+            { queue: 'HITL - High Financial Impact Decision', action: 'FinOps Lead approved emergency scale-up budget allowance for extreme workload spikes.' },
+            { queue: 'HITL - Ethical / Compliance Approval Required', action: 'Data Governance Officer authorized temporary encrypted log override to bypass GDPR blocks.' },
+            { queue: 'HITL - Unrecognized Anomaly / Edge Case', action: 'L3 Core Engineering Group manually isolated and debugged unclassified telemetry noise.' }
+        ];
+
+        let masterDataset = [];
