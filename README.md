@@ -1,4 +1,4 @@
-# AIFLGroup5 - AIFL Private Repo Created for Group 5
+# AIFLGroup5 - AIFL PUBLIC Repo Created for Group 5
 **CAPSTONE PROJECT ProjectAIFL Group 5**
 
 5 week Project for AIFL 2026 Jan 2026 Batch. 
